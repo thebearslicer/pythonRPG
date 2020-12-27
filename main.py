@@ -42,6 +42,15 @@ class armor:
 playerGp = 75 #starting GP
 playerWeapon = "fists" #no weapon :(
 playerArmor = "clothes" #no naked :)
+playerInventory = {
+    "1.Potion" : 0,
+    "2.Elixer" :0,
+    "3.Super Potion" : 0,
+    "4.Super Elixer" : 0,
+    "5.Mega Potion" : 0,
+    "6.Mega Elixer" : 0
+}
+
 
 print("Cool Title\n") #re-do title
 time.sleep(0.5)
@@ -56,7 +65,7 @@ time.sleep(1)
 print("The dark lord must be stopped, go now hero\n")
 time.sleep(1)
 
-def shop(shopLvl, playerGp):
+def shop(shopLvl, playerGp, playerInventory):
     print("What would you like to buy?\n")
     if shopLvl == 1:
         shopWeapon = "1. Longsword"
@@ -116,7 +125,7 @@ def shop(shopLvl, playerGp):
     
     if shopChoice == '1':
         if weaponCost < playerGp:
-            print("You bought a", shopWeapon, "for", weaponCost, "!\n")
+            print("You bought a", shopWeapon, "for", weaponCost, "gp!\n")
             time.sleep(0.8)
             playerGp = playerGp - weaponCost
             print("You now have", playerGp, "gp left\n")
@@ -128,7 +137,7 @@ def shop(shopLvl, playerGp):
         else:  print("Error\n")
     if shopChoice == '2':
         if armorCost < playerGp:
-            print("You bought a", shopArmor, "for", armorCost, "!\n")
+            print("You bought a", shopArmor, "for", armorCost, "gp!\n")
             time.sleep(0.8)
             playerGp = playerGp - armorCost
             print("You now have", playerGp, "gp left\n")
@@ -138,7 +147,41 @@ def shop(shopLvl, playerGp):
             print("Not enough gold\n")
         else: print('Error\n')
         
-        #add consumable shop
+    if shopChoice == '3' :
+        if potionCost < playerGp:
+            print("You bought a", shopPotion, "for", potionCost, "gp!\n")
+            time.sleep(0.8)
+            playerGp = playerGp - potionCost
+            print("You now have", playerGp, "gp left\n")
+            time.sleep(0.8)
+            if shopPotion == "3. Potion":
+                playerInventory["1.Potion"] = playerInventory["1.Potion"] + 1
+            if shopPotion == "3. Super Potion":
+                playerInventory["3.Super Potion"] = playerInventory["3.Super potion"] + 1
+            if shopPotion == "3. Mega Potion":
+                playerInventory["3.Mega Potion"] = playerInventory["3.Mega Potion"] + 1
+        elif potionCost < playerGp:
+            print("Not enough gold\n")
+        else: print("Error\n")
+    if shopChoice == '4' :
+        if elixerCost < playerGp:
+            print("You bought a", shopElixer, "for", elixerCost, "gp!\n")
+            time.sleep(0.8)
+            playerGp = playerGp - elixerCost
+            print("You now have", playerGp, "gp left\n")
+            time.sleep(0.8)
+            if shopElixer == "4. Elixer":
+                playerInventory["2.Elixer"] = playerInventory["2.Elixer"] + 1
+            if shopElixer == "3. Super Elixer":
+                playerInventory["4.Super Elixer"] = playerInventory["4.Super Elixer"] + 1
+            if shopElixer == "3. Mega Elixer":
+                playerInventory["6.Mega Elixer"] = playerInventory["6.Mega Elixer"] + 1
+        elif elixerCost < playerGp:
+            print("Not enough gold!\n")
+        else : print("Error\n")
+    else: print("Error\n")
+        
+    
     
    
 
@@ -150,10 +193,15 @@ while currentLocation == "Black_Hollows":
     option3 = "3. Countinue towards the Evil Lords castle\n" #reseting options is dumb
     option4 = "4. What is this place?\n" #whatever
     option5 = "5.Use potions/elixers\n" #make this
+    print("Your action?\n")
     print(option1, option2, option3, option4, option5)
     
     playerChoice = int(input("1/2/3/4/5"))
     
     if playerChoice == 1:
-        shop(BlackHollows.shopLvl, playerGp)
+        shop(BlackHollows.shopLvl, playerGp, playerInventory)
+    
+    if playerChoice == 4:
+        print("This is", BlackHollows.name, "It is the", BlackHollows.whatIs, "it has a shop level of", BlackHollows.shopLvl)
+    
     
